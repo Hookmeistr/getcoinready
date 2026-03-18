@@ -17,9 +17,7 @@ header{background:var(--brand);padding:16px 24px;display:flex;align-items:center
 .logo-circle svg{width:26px;height:26px}
 .logo-text{color:#fff;font-family:'Lora',serif;font-size:20px;font-weight:500}
 .logo-text span{color:#7EC8A0}
-nav{display:flex;gap:8px}
-nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:7px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
-nav button:hover,nav button.active{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.6)}
+
 .hero{background:var(--brand);color:#fff;padding:52px 24px 60px;text-align:center}
 .hero h1{font-family:'Lora',serif;font-size:clamp(26px,5vw,46px);font-weight:500;line-height:1.2;margin-bottom:16px}
 .hero h1 span{color:#7EC8A0}
@@ -153,11 +151,7 @@ footer a:hover{text-decoration:underline}
     </div>
     <span class="logo-text">Get<span>Coin</span>Ready</span>
   </a>
-  <nav>
-    <button class="active" onclick="showTab('wizard',this)">Setup Guide</button>
-    <button onclick="showTab('chat',this)">Ask AI</button>
-    <button onclick="showTab('dashboard',this)" id="dash-nav-btn" style="display:none">Dashboard</button>
-  </nav>
+
 </header>
 
 <div class="hero">
@@ -416,7 +410,7 @@ function showTab(id,el){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
   document.getElementById('panel-'+id).classList.add('active');
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
-  document.querySelectorAll('nav button').forEach(function(t){t.classList.remove('active')});
+
   if(el){el.classList.add('active');}
   if(id==='dashboard')renderDashboard();
 }
