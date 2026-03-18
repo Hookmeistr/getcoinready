@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetCoinReady — Your First Step Into Crypto</title>
+<meta name="description" content="Free, neutral crypto guidance for everyday people. No jargon. No hype. Just plain-English help to take your first step with confidence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--brand:#1A4A7A;--brand-light:#E8F1FA;--brand-mid:#4A7FB5;--green:#3B6D11;--green-light:#EAF3DE;--gold:#B07D2A;--gold-light:#FBF4E8;--text:#1A1A1A;--text-sec:#555;--text-ter:#888;--bg:#F8F9FA;--bg2:#FFFFFF;--border:#E0E0E0;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,0.08)}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);min-height:100vh}
+header{background:var(--brand);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-circle{width:42px;height:42px;border-radius:50%;background:#14407A;border:2px solid #4A7FB5;display:flex;align-items:center;justify-content:center}
+.logo-circle svg{width:26px;height:26px}
+.logo-text{color:#fff;font-family:'Lora',serif;font-size:20px;font-weight:500}
+.logo-text span{color:#7EC8A0}
+nav{display:flex;gap:8px}
+nav button{background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:7px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+nav button:hover,nav button.active{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.6)}
+.hero{background:var(--brand);color:#fff;padding:52px 24px 60px;text-align:center}
+.hero h1{font-family:'Lora',serif;font-size:clamp(26px,5vw,46px);font-weight:500;line-height:1.2;margin-bottom:16px}
+.hero h1 span{color:#7EC8A0}
+.hero p{font-size:clamp(14px,2vw,18px);color:#B8D4EA;max-width:580px;margin:0 auto 28px;line-height:1.7}
+.hero-badges{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:32px}
+.badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:6px 14px;border-radius:20px;font-size:13px}
+.btn-primary{background:#7EC8A0;color:#1A4A7A;border:none;padding:14px 32px;border-radius:8px;font-size:16px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;display:inline-block}
+.btn-primary:hover{background:#6AB88E;transform:translateY(-1px)}
+.disclaimer{background:var(--gold-light);border-left:4px solid var(--gold);padding:14px 20px;margin:24px;border-radius:0 8px 8px 0;font-size:13px;color:#6B4A10;line-height:1.6}
+.disclaimer strong{color:#5A3A08}
+.container{max-width:780px;margin:0 auto;padding:24px}
+.tabs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}
+.tab{flex:1;padding:14px 8px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--text-sec);transition:all 0.2s;font-family:'DM Sans',sans-serif;border-right:1px solid var(--border)}
+.tab:last-child{border-right:none}
+.tab.active{background:var(--brand);color:#fff}
+.tab:hover:not(.active){background:var(--brand-light);color:var(--brand)}
+.panel{display:none}.panel.active{display:block}
+.progress-wrap{margin-bottom:20px}
+.progress-bar{display:flex;gap:6px;margin-bottom:8px}
+.prog-dot{height:5px;flex:1;background:var(--border);border-radius:3px;transition:background 0.3s}
+.prog-dot.done{background:var(--brand-mid)}.prog-dot.active{background:var(--brand)}
+.prog-label{font-size:12px;color:var(--text-ter)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-blue{background:var(--brand-light);border-color:#B5D4F4}
+.card-gold{background:var(--gold-light);border-color:#D4B070}
+.step{display:none}.step.active{display:block}
+.step-header{margin-bottom:20px}
+.eyebrow{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-ter);margin-bottom:6px}
+.step-header h2{font-family:'Lora',serif;font-size:24px;font-weight:500;margin-bottom:8px;line-height:1.35}
+.step-header p{font-size:14px;color:var(--text-sec);line-height:1.65}
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:500px){.option-grid{grid-template-columns:1fr}}
+.option-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.option-btn:hover{border-color:var(--brand-mid);background:var(--brand-light)}
+.option-btn.selected{border:2px solid var(--brand-mid);background:var(--brand-light)}
+.opt-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.opt-desc{font-size:12px;color:var(--text-sec);line-height:1.5}
+.slider-row{margin-bottom:16px}
+.slider-row label{font-size:13px;color:var(--text-sec);display:flex;justify-content:space-between;margin-bottom:8px}
+.slider-row label span{font-weight:500;color:var(--text)}
+.slider-row input[type=range]{width:100%;accent-color:var(--brand)}
+.slider-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-ter);margin-top:4px}
+.nav-row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:20px}
+.btn-back{background:none;border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;cursor:pointer;color:var(--text-sec);font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.btn-back:hover{background:var(--bg)}
+.btn-next{background:var(--brand);border:none;border-radius:8px;padding:11px 24px;font-size:14px;color:#fff;cursor:pointer;font-weight:500;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.btn-next:hover{background:#153d6a}.btn-next:disabled{background:var(--border);cursor:default;color:var(--text-ter)}
+.platform-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow)}
+.platform-card:hover{border-color:var(--brand-mid)}
+.platform-card.recommended{border:2px solid var(--brand-mid)}
+.platform-card.selected{border:2px solid var(--brand);background:var(--brand-light)}
+.platform-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.platform-name{font-family:'Lora',serif;font-size:18px;font-weight:500}
+.pill{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.pill-blue{background:var(--brand-light);color:var(--brand)}.pill-gray{background:#F0F0F0;color:#666}
+.platform-fee{font-size:12px;color:var(--text-sec);margin-bottom:8px}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.pros-cons-col p{font-size:11px;color:var(--text-ter);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em}
+.pros-cons-col ul{list-style:none;padding:0}
+.pros-cons-col ul li{font-size:12px;color:var(--text-sec);line-height:1.55;padding-left:14px;position:relative}
+.pros-cons-col ul li:before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%}
+.pros li:before{background:var(--green)}.cons li:before{background:#A32D2D}
+.summary-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}
+.summary-row:last-child{border-bottom:none}
+.summary-row .lbl{color:var(--text-sec)}.summary-row .val{font-weight:500}
+.next-steps{background:var(--brand-light);border:1px solid #B5D4F4;border-radius:var(--radius);padding:16px;margin-top:16px}
+.next-steps h3{font-family:'Lora',serif;font-size:17px;font-weight:500;margin-bottom:12px;color:var(--brand)}
+.step-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-item p{font-size:13px;color:var(--text-sec);line-height:1.55}
+.btn-cta{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:13px 28px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-top:16px}
+.btn-cta:hover{background:#153d6a}
+.chat-header h2{font-family:'Lora',serif;font-size:22px;font-weight:500;margin-bottom:6px}
+.chat-header p{font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:14px}
+.suggested-qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.sug-btn{font-size:12px;padding:6px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;cursor:pointer;color:var(--text-sec);transition:all 0.15s;font-family:'DM Sans',sans-serif}
+.sug-btn:hover{border-color:var(--brand-mid);color:var(--brand);background:var(--brand-light)}
+.chat-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.chat-messages{min-height:280px;max-height:420px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:10px;align-items:flex-start;max-width:90%}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-bubble{background:#F0F0F0;border-radius:12px;padding:11px 14px;font-size:14px;line-height:1.6;color:var(--text)}
+.msg.user .msg-bubble{background:var(--brand-light)}
+.msg-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:2px}
+.av-ai{background:var(--brand);color:#fff}.av-user{background:#E0E0E0;color:#666}
+.chat-input-row{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--border);background:#FAFAFA}
+.chat-input-row input{flex:1;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border 0.2s}
+.chat-input-row input:focus{border-color:var(--brand-mid)}
+.send-btn{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;font-weight:500;font-family:'DM Sans',sans-serif}
+.send-btn:hover{background:#153d6a}.send-btn:disabled{background:var(--border);cursor:default}
+.typing{display:flex;gap:4px;align-items:center;padding:11px 14px}
+.typing span{width:7px;height:7px;background:#999;border-radius:50%;animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.dash-header h2{font-family:'Lora',serif;font-size:22px;font-weight:500;margin-bottom:4px}
+.dash-header p{font-size:13px;color:var(--text-sec);margin-bottom:20px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow)}
+.metric .num{font-size:30px;font-weight:500;color:var(--brand);line-height:1}
+.metric .lbl{font-size:11px;color:var(--text-ter);margin-top:5px;text-transform:uppercase;letter-spacing:0.07em}
+.q-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+.q-text{font-size:14px;font-weight:500;line-height:1.4}
+.q-count{font-size:11px;padding:2px 9px;background:var(--brand-light);color:var(--brand);border-radius:10px;white-space:nowrap;font-weight:500;flex-shrink:0}
+.q-answer{font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:10px}
+.suggestion-box{background:var(--gold-light);border:1px solid #D4B070;border-radius:8px;padding:10px 12px;font-size:13px;color:#6B4A10;line-height:1.55;margin-bottom:10px}
+.action-row{display:flex;gap:8px}
+.approve-btn{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+.approve-btn:hover{background:#153d6a}
+.skip-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:7px 16px;font-size:13px;cursor:pointer;color:var(--text-sec);font-family:'DM Sans',sans-serif}
+.skip-btn:hover{background:var(--bg)}
+.approved-badge{font-size:12px;padding:5px 12px;background:#EAF3DE;color:var(--green);border-radius:8px;font-weight:500;border:1px solid #C0DD97}
+.section-title{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-ter);margin-bottom:10px}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-ter);font-size:14px}
+footer{background:var(--brand);color:#B8D4EA;text-align:center;padding:32px 24px;margin-top:48px;font-size:13px;line-height:1.8}
+footer a{color:#7EC8A0;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">
+    <div class="logo-circle">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="#4A7FB5" stroke-width="1.5"/>
+        <polyline points="5,14 8,11 11,13 15,8 19,10" fill="none" stroke="#7EC8A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="19" cy="10" r="1.5" fill="#7EC8A0"/>
+      </svg>
+    </div>
+    <span class="logo-text">Get<span>Coin</span>Ready</span>
+  </a>
+  <nav>
+    <button class="active" onclick="showTab('wizard',this)">Setup Guide</button>
+    <button onclick="showTab('chat',this)">Ask AI</button>
+    <button onclick="showTab('dashboard',this)" id="dash-nav-btn" style="display:none">Dashboard</button>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Your first step into crypto,<br><span>made simple.</span></h1>
+  <p>Free, neutral guidance for everyday people. No jargon. No hype. No pressure. Just plain-English help to get started with confidence.</p>
+  <div class="hero-badges">
+    <span class="badge">&#10003; 100% Free</span>
+    <span class="badge">&#10003; Completely Neutral</span>
+    <span class="badge">&#10003; No Jargon</span>
+    <span class="badge">&#10003; Your Choice Always</span>
+  </div>
+  <button class="btn-primary" onclick="document.querySelector('.container').scrollIntoView({behavior:'smooth'})">Start Your Free Guide &rarr;</button>
+</div>
+
+<div class="disclaimer">
+  <strong>Important:</strong> GetCoinReady is for educational purposes only and does not constitute financial or investment advice. Cryptocurrency involves real risk of loss. Only invest what you can afford to lose. All platform and investment decisions are entirely yours. We may earn a referral fee if you sign up to a platform through our links &mdash; this never affects our recommendations, which are always neutral and unbiased.
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('wizard',this)">Setup Guide</button>
+    <button class="tab" onclick="showTab('chat',this)">Ask a Question</button>
+    <button class="tab" id="dash-tab" style="display:none" onclick="showTab('dashboard',this)">Owner Dashboard</button>
+  </div>
+
+  <div class="panel active" id="panel-wizard">
+    <div class="progress-wrap">
+      <div class="progress-bar" id="wprog"></div>
+      <div class="prog-label" id="prog-label">Step 1 of 6</div>
+    </div>
+
+    <div class="step active" id="ws1">
+      <div class="step-header">
+        <div class="eyebrow">Step 1 of 6 &mdash; Welcome</div>
+        <h2>Your plain-English guide to getting started with crypto</h2>
+        <p>This free 5-minute guide walks you through everything you need to know before making your first purchase &mdash; at your own pace, with no pressure.</p>
+      </div>
+      <div class="card card-blue">
+        <p style="font-size:14px;color:#1A3A5A;line-height:1.8">This guide covers:<br>
+        &rarr; What crypto actually is and how it works<br>
+        &rarr; Hot vs. cold wallets explained in plain English<br>
+        &rarr; Your personal risk tolerance and goals<br>
+        &rarr; Honest platform comparison with real fees<br>
+        &rarr; Your personalized setup checklist</p>
+      </div>
+      <div class="nav-row">
+        <span style="font-size:12px;color:var(--text-ter)">About 5 minutes &mdash; completely free</span>
+        <button class="btn-next" onclick="wGoTo(2)">Get started &rarr;</button>
+      </div>
+    </div>
+
+    <div class="step" id="ws2">
+      <div class="step-header">
+        <div class="eyebrow">Step 2 of 6 &mdash; Your background</div>
+        <h2>How familiar are you with cryptocurrency?</h2>
+        <p>This only affects which explanations you see. There are no wrong answers.</p>
+      </div>
+      <div class="option-grid">
+        <button class="option-btn" onclick="wSel(this,'exp','beginner')"><div class="opt-title">Complete beginner</div><div class="opt-desc">Heard of Bitcoin but haven't done anything with it</div></button>
+        <button class="option-btn" onclick="wSel(this,'exp','some')"><div class="opt-title">Some knowledge</div><div class="opt-desc">Understand basics but never actually bought any</div></button>
+        <button class="option-btn" onclick="wSel(this,'exp','tried')"><div class="opt-title">Tried it before</div><div class="opt-desc">Bought or traded before but stopped for a while</div></button>
+        <button class="option-btn" onclick="wSel(this,'exp','exp')"><div class="opt-title">Some experience</div><div class="opt-desc">Hold or trade occasionally, want to do it better</div></button>
+      </div>
+      <div id="wallet-tip" style="display:none">
+        <div class="card card-blue">
+          <p style="font-size:13px;font-weight:500;color:var(--brand);margin-bottom:6px">What is a crypto wallet?</p>
+          <p style="font-size:13px;color:#1A3A5A;line-height:1.65">A wallet holds your <em>keys</em>, not coins. <strong>Hot wallet:</strong> connected to the internet &mdash; convenient but has been hacked before. <strong>Cold wallet:</strong> a physical device kept offline &mdash; much safer for larger amounts, costs $50&ndash;$150.</p>
+        </div>
+      </div>
+      <div class="nav-row"><button class="btn-back" onclick="wGoTo(1)">&larr; Back</button><button class="btn-next" id="wn2" disabled onclick="wGoTo(3)">Continue &rarr;</button></div>
+    </div>
+
+    <div class="step" id="ws3">
+      <div class="step-header">
+        <div class="eyebrow">Step 3 of 6 &mdash; Your goals</div>
+        <h2>What are you hoping to get out of crypto?</h2>
+        <p>Select all that apply.</p>
+      </div>
+      <button class="option-btn" style="width:100%;margin-bottom:8px" onclick="wToggle(this,'learn')"><div class="opt-title">Learn and understand it</div><div class="opt-desc">Explore without putting in much money at first</div></button>
+      <button class="option-btn" style="width:100%;margin-bottom:8px" onclick="wToggle(this,'hold')"><div class="opt-title">Buy and hold long term</div><div class="opt-desc">Buy Bitcoin or Ethereum and sit on it for years</div></button>
+      <button class="option-btn" style="width:100%;margin-bottom:8px" onclick="wToggle(this,'trade')"><div class="opt-title">Active trading</div><div class="opt-desc">Buy and sell to profit from price movements</div></button>
+      <button class="option-btn" style="width:100%" onclick="wToggle(this,'diversify')"><div class="opt-title">Diversify my savings</div><div class="opt-desc">Small crypto allocation alongside other savings</div></button>
+      <div class="slider-row" style="margin-top:16px">
+        <label>How much are you comfortable losing if things go wrong? <span id="rval">10%</span></label>
+        <input type="range" min="0" max="100" value="10" step="5" oninput="document.getElementById('rval').textContent=this.value+'%'">
+        <div class="slider-labels"><span>Nothing</span><span>Half</span><span>All of it</span></div>
+      </div>
+      <div class="slider-row">
+        <label>What's your rough starting budget? <span id="bval">$500</span></label>
+        <input type="range" min="0" max="10" value="3" step="1" oninput="updateBudget(this.value)">
+        <div class="slider-labels"><span>$50</span><span>$1,000</span><span>$10k+</span></div>
+      </div>
+      <div class="nav-row"><button class="btn-back" onclick="wGoTo(2)">&larr; Back</button><button class="btn-next" onclick="wGoTo(4)">Continue &rarr;</button></div>
+    </div>
+
+    <div class="step" id="ws4">
+      <div class="step-header">
+        <div class="eyebrow">Step 4 of 6 &mdash; Platform comparison</div>
+        <h2>Choose the platform that feels right for you</h2>
+        <p>These are honest pros and cons. None of these are paid recommendations &mdash; your choice is entirely yours.</p>
+      </div>
+      <div class="platform-card recommended" onclick="wPlatform(this,'Coinbase')">
+        <div class="platform-top"><span class="platform-name">Coinbase</span><span class="pill pill-blue">Best for beginners</span></div>
+        <div class="platform-fee">Trading fee: ~1.5% &mdash; Higher than others but simplest experience available</div>
+        <div class="pros-cons">
+          <div class="pros-cons-col pros"><p>Pros</p><ul><li>Simplest interface</li><li>US-regulated &amp; insured</li><li>Great educational content</li><li>Easy bank connection</li></ul></div>
+          <div class="pros-cons-col cons"><p>Cons</p><ul><li>Highest fees of major exchanges</li><li>Slow customer support</li></ul></div>
+        </div>
+      </div>
+      <div class="platform-card" onclick="wPlatform(this,'Kraken')">
+        <div class="platform-top"><span class="platform-name">Kraken</span><span class="pill pill-gray">Security-focused</span></div>
+        <div class="platform-fee">Trading fee: 0.26% / 0.16% maker/taker &mdash; Much lower than Coinbase</div>
+        <div class="pros-cons">
+          <div class="pros-cons-col pros"><p>Pros</p><ul><li>Excellent security record</li><li>Lower fees</li><li>Good customer support</li></ul></div>
+          <div class="pros-cons-col cons"><p>Cons</p><ul><li>Less intuitive interface</li><li>Slower bank transfers</li></ul></div>
+        </div>
+      </div>
+      <div class="platform-card" onclick="wPlatform(this,'Cash App')">
+        <div class="platform-top"><span class="platform-name">Cash App</span><span class="pill pill-gray">Bitcoin only</span></div>
+        <div class="platform-fee">Fee: ~1.5&ndash;3% spread &mdash; Simple but not the cheapest</div>
+        <div class="pros-cons">
+          <div class="pros-cons-col pros"><p>Pros</p><ul><li>Already on most phones</li><li>Extremely simple</li></ul></div>
+          <div class="pros-cons-col cons"><p>Cons</p><ul><li>Bitcoin only</li><li>Not a true exchange</li></ul></div>
+        </div>
+      </div>
+      <div class="platform-card" onclick="wPlatform(this,'Gemini')">
+        <div class="platform-top"><span class="platform-name">Gemini</span><span class="pill pill-gray">Regulated &amp; clean</span></div>
+        <div class="platform-fee">Trading fee: ~1.49% &mdash; NY-regulated, cleanest interface</div>
+        <div class="pros-cons">
+          <div class="pros-cons-col pros"><p>Pros</p><ul><li>Strictest US regulation</li><li>Clean mobile app</li></ul></div>
+          <div class="pros-cons-col cons"><p>Cons</p><ul><li>Fewer coins available</li><li>Fees similar to Coinbase</li></ul></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-ter);margin-top:6px">We may earn a referral fee if you sign up via our links. This does not influence our recommendations.</p>
+      <div class="nav-row"><button class="btn-back" onclick="wGoTo(3)">&larr; Back</button><button class="btn-next" id="wn4" disabled onclick="wGoTo(5)">Continue &rarr;</button></div>
+    </div>
+
+    <div class="step" id="ws5">
+      <div class="step-header">
+        <div class="eyebrow">Step 5 of 6 &mdash; What you'll need</div>
+        <h2>Gather these before signing up</h2>
+        <p>Every regulated exchange requires identity verification. Have these ready &mdash; you'll enter them directly on the platform's official website, not here.</p>
+      </div>
+      <div class="card">
+        <p style="font-size:13px;font-weight:500;margin-bottom:10px">Required by all platforms</p>
+        <div class="summary-row"><span class="lbl">Government-issued photo ID</span><span class="val">Driver's license or passport</span></div>
+        <div class="summary-row"><span class="lbl">Social Security Number</span><span class="val">For US tax compliance</span></div>
+        <div class="summary-row"><span class="lbl">Selfie / live photo</span><span class="val">For identity verification</span></div>
+        <div class="summary-row"><span class="lbl">Email &amp; phone number</span><span class="val">For 2-factor authentication</span></div>
+        <div class="summary-row"><span class="lbl">Bank account or debit card</span><span class="val">To fund your account</span></div>
+      </div>
+      <div class="card card-gold">
+        <p style="font-size:13px;color:#6B4A10;line-height:1.6"><strong>Security reminder:</strong> Always type the platform URL directly into your browser. Never click links from emails or ads. Verify the address carefully before entering any personal information.</p>
+      </div>
+      <div class="nav-row"><button class="btn-back" onclick="wGoTo(4)">&larr; Back</button><button class="btn-next" onclick="wBuildSummary();wGoTo(6)">See my plan &rarr;</button></div>
+    </div>
+
+    <div class="step" id="ws6">
+      <div class="step-header">
+        <div class="eyebrow">Step 6 of 6 &mdash; Your plan</div>
+        <h2>You're ready to take the next step</h2>
+        <p>Here's your personalized summary. You can come back to this guide anytime.</p>
+      </div>
+      <div class="card" id="wsummary"></div>
+      <div class="next-steps">
+        <h3>Your next steps</h3>
+        <div class="step-item"><div class="step-num">1</div><p><strong>Go to your platform's official website</strong> by typing it directly &mdash; never click links from emails or ads.</p></div>
+        <div class="step-item"><div class="step-num">2</div><p><strong>Create your account</strong> with a strong unique password and enable 2-factor authentication immediately.</p></div>
+        <div class="step-item"><div class="step-num">3</div><p><strong>Complete identity verification (KYC)</strong> &mdash; usually takes minutes, sometimes up to 24 hours.</p></div>
+        <div class="step-item"><div class="step-num">4</div><p><strong>Link your bank and make a small first deposit.</strong> Start smaller than you think. You can always add more.</p></div>
+        <div class="step-item"><div class="step-num">5</div><p><strong>Make your first purchase</strong> &mdash; consider Bitcoin or Ethereum only to start.</p></div>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-cta" onclick="showTab('chat',document.querySelectorAll('.tab')[1])">Have questions? Ask the AI assistant &rarr;</button>
+      </div>
+      <p style="font-size:11px;color:var(--text-ter);text-align:center;margin-top:14px;line-height:1.7">Educational purposes only. Not financial advice. Crypto markets are volatile. All decisions are entirely your own.</p>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-chat">
+    <div class="chat-header">
+      <h2>Ask anything about getting started with crypto</h2>
+      <p>Our AI assistant answers in plain English for complete beginners. All questions are logged anonymously to help improve this guide.</p>
+    </div>
+    <div class="suggested-qs">
+      <button class="sug-btn" onclick="askQ(this)">What is a seed phrase?</button>
+      <button class="sug-btn" onclick="askQ(this)">Is crypto safe for beginners?</button>
+      <button class="sug-btn" onclick="askQ(this)">How much should I start with?</button>
+      <button class="sug-btn" onclick="askQ(this)">Bitcoin vs Ethereum &mdash; what's the difference?</button>
+      <button class="sug-btn" onclick="askQ(this)">Do I need to pay taxes on crypto?</button>
+      <button class="sug-btn" onclick="askQ(this)">What is a cold wallet?</button>
+    </div>
+    <div class="chat-box">
+      <div class="chat-messages" id="chat-msgs">
+        <div class="msg">
+          <div class="msg-avatar av-ai">AI</div>
+          <div class="msg-bubble">Hi! I'm here to answer any questions you have about getting started with crypto &mdash; wallets, platforms, safety, taxes, or anything else. What would you like to know?</div>
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-in" placeholder="Type your question here..." onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="send-btn" id="send-btn" onclick="sendChat()">Ask</button>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--text-ter);margin-top:10px;text-align:center">Educational information only &mdash; not financial advice. Always verify important information with official sources.</p>
+  </div>
+
+  <div class="panel" id="panel-dashboard">
+    <div class="dash-header">
+      <h2>Owner Dashboard</h2>
+      <p>Review what users are asking and approve AI-suggested content updates before anything goes live on the site.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="num" id="m-total">0</div><div class="lbl">Questions asked</div></div>
+      <div class="metric"><div class="num" id="m-unique">0</div><div class="lbl">Unique topics</div></div>
+      <div class="metric"><div class="num" id="m-pending">0</div><div class="lbl">Updates pending</div></div>
+    </div>
+    <div class="section-title">Frequently asked &mdash; suggested content additions</div>
+    <div id="dash-items">
+      <div class="empty-state">No questions logged yet. Questions from the AI assistant will appear here once users start asking them.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p style="font-size:17px;font-weight:500;color:#fff;margin-bottom:6px">GetCoinReady</p>
+  <p>Free, neutral crypto guidance for everyday people.</p>
+  <p style="margin-top:4px">Educational purposes only &mdash; not financial or investment advice.</p>
+  <div class="footer-links">
+    <a href="https://facebook.com/getcoinready" target="_blank">Facebook</a>
+    <a href="https://youtube.com/@GetCoinReady" target="_blank">YouTube</a>
+    <a href="https://instagram.com/GetCoinReady" target="_blank">Instagram</a>
+    <a href="https://tiktok.com/@GetCoinReady" target="_blank">TikTok</a>
+    <a href="https://x.com/GetCoinReady" target="_blank">X</a>
+  </div>
+  <p style="margin-top:14px;font-size:12px;color:#7A9ABA">&copy; 2026 GetCoinReady.com &mdash; All rights reserved</p>
+</footer>
+
+<script>
+var wState={exp:null,goals:[],platform:null,risk:10,budget:500};
+var budgetVals=[50,100,250,500,750,1000,1500,2500,5000,7500,10000];
+var qLog=[];
+var chatHistory=[];
+var isThinking=false;
+
+// Owner dashboard access via URL: getcoinready.com/?owner=gcr2026
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.get('owner')==='gcr2026'){
+    document.getElementById('dash-tab').style.display='';
+    document.getElementById('dash-nav-btn').style.display='';
+  }
+})();
+
+function showTab(id,el){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('nav button').forEach(function(t){t.classList.remove('active')});
+  if(el){el.classList.add('active');}
+  if(id==='dashboard')renderDashboard();
+}
+
+function updateWProg(n){
+  var b=document.getElementById('wprog');b.innerHTML='';
+  for(var i=1;i<=6;i++){var d=document.createElement('div');d.className='prog-dot'+(i<n?' done':i===n?' active':'');b.appendChild(d);}
+  document.getElementById('prog-label').textContent='Step '+n+' of 6';
+}
+function wGoTo(n){
+  document.querySelectorAll('#panel-wizard .step').forEach(function(s){s.classList.remove('active')});
+  document.getElementById('ws'+n).classList.add('active');
+  updateWProg(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function wSel(el,key,val){
+  wState[key]=val;
+  el.parentElement.querySelectorAll('.option-btn').forEach(function(b){b.classList.remove('selected')});
+  el.classList.add('selected');
+  if(key==='exp'){
+    document.getElementById('wn2').disabled=false;
+    document.getElementById('wallet-tip').style.display=(val==='beginner'||val==='some')?'block':'none';
+  }
+}
+function wToggle(el,val){
+  var i=wState.goals.indexOf(val);
+  if(i>-1){wState.goals.splice(i,1);el.classList.remove('selected')}else{wState.goals.push(val);el.classList.add('selected')}
+}
+function wPlatform(el,name){
+  wState.platform=name;
+  document.querySelectorAll('.platform-card').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected');
+  document.getElementById('wn4').disabled=false;
+}
+function updateBudget(v){
+  var val=budgetVals[parseInt(v)]||500;
+  wState.budget=val;
+  document.getElementById('bval').textContent=val>=10000?'$10,000+':'$'+val.toLocaleString();
+}
+function wBuildSummary(){
+  var em={beginner:'Complete beginner',some:'Some knowledge',tried:'Tried before',exp:'Some experience'};
+  var gl=wState.goals.length?wState.goals.join(', '):'Not specified';
+  var html='<p style="font-size:13px;font-weight:500;margin-bottom:10px">Your profile</p>';
+  html+='<div class="summary-row"><span class="lbl">Experience level</span><span class="val">'+(em[wState.exp]||'&mdash;')+'</span></div>';
+  html+='<div class="summary-row"><span class="lbl">Goals</span><span class="val">'+gl+'</span></div>';
+  html+='<div class="summary-row"><span class="lbl">Risk tolerance</span><span class="val">'+wState.risk+'%</span></div>';
+  html+='<div class="summary-row"><span class="lbl">Starting budget</span><span class="val">$'+wState.budget.toLocaleString()+'</span></div>';
+  html+='<div class="summary-row"><span class="lbl">Chosen platform</span><span class="val">'+(wState.platform||'Not selected')+'</span></div>';
+  document.getElementById('wsummary').innerHTML=html;
+}
+updateWProg(1);
+
+function addMsg(role,text){
+  var msgs=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='msg'+(role==='user'?' user':'');
+  var av=document.createElement('div');av.className='msg-avatar '+(role==='user'?'av-user':'av-ai');av.textContent=role==='user'?'You':'AI';
+  var bub=document.createElement('div');bub.className='msg-bubble';bub.innerHTML=text.replace(/\n/g,'<br>');
+  if(role==='user'){div.appendChild(bub);div.appendChild(av);}else{div.appendChild(av);div.appendChild(bub);}
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function addTyping(){
+  var msgs=document.getElementById('chat-msgs');
+  var div=document.createElement('div');div.className='msg';div.id='typing-ind';
+  var av=document.createElement('div');av.className='msg-avatar av-ai';av.textContent='AI';
+  var bub=document.createElement('div');bub.className='msg-bubble';
+  bub.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  div.appendChild(av);div.appendChild(bub);msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function removeTyping(){var t=document.getElementById('typing-ind');if(t)t.remove();}
+
+function logQuestion(q,a){
+  var ex=qLog.find(function(x){return x.q.toLowerCase()===q.toLowerCase()});
+  if(ex){ex.count++;ex.latestAnswer=a;}
+  else{qLog.push({q:q,a:a,count:1,approved:false,skipped:false,suggestion:genSuggestion(q)});}
+  updateMetrics();
+}
+function genSuggestion(q){
+  var ql=q.toLowerCase();
+  if(ql.indexOf('seed')>-1||ql.indexOf('phrase')>-1)return'Add a "Seed Phrases Explained" section to Step 2 with a plain-English explanation.';
+  if(ql.indexOf('tax')>-1)return'Add a "Taxes on Crypto" FAQ card to the final summary page.';
+  if(ql.indexOf('safe')>-1||ql.indexOf('scam')>-1)return'Add a "Staying Safe" checklist covering common scams and red flags.';
+  if(ql.indexOf('how much')>-1||ql.indexOf('start with')>-1)return'Add a "How Much Should I Start With?" section to the risk tolerance step.';
+  if(ql.indexOf('bitcoin')>-1&&ql.indexOf('ethereum')>-1)return'Add a "Bitcoin vs. Ethereum" comparison card to Step 4.';
+  if(ql.indexOf('cold')>-1||ql.indexOf('hardware')>-1)return'Expand the cold wallet section in Step 2 to include recommended hardware wallet brands.';
+  return'Consider adding content addressing "'+q.substring(0,50)+(q.length>50?'...':'')+'" to the FAQ section.';
+}
+function updateMetrics(){
+  document.getElementById('m-total').textContent=qLog.reduce(function(s,x){return s+x.count},0);
+  document.getElementById('m-unique').textContent=qLog.length;
+  document.getElementById('m-pending').textContent=qLog.filter(function(x){return!x.approved&&!x.skipped}).length;
+}
+
+async function sendChat(){
+  if(isThinking)return;
+  var inp=document.getElementById('chat-in');
+  var q=inp.value.trim();if(!q)return;
+  inp.value='';isThinking=true;
+  document.getElementById('send-btn').disabled=true;
+  addMsg('user',q);
+  chatHistory.push({role:'user',content:q});
+  addTyping();
+  try{
+    var sys='You are a friendly plain-English crypto education assistant on GetCoinReady.com, a free neutral guide for everyday beginners often aged 50 and over. Answer questions about cryptocurrency simply and clearly without jargon. Always end your response with a reminder that you provide educational information only, not financial advice. Keep answers under 150 words. Be warm and patient. Never recommend specific coins to buy or predict prices.';
+    var resp=await fetch('/.netlify/functions/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:chatHistory.slice()})
+    });
+    var data=await resp.json();
+    removeTyping();
+    var ans=data.content&&data.content[0]?data.content[0].text:'Sorry, I could not get a response. Please try again.';
+    chatHistory.push({role:'assistant',content:ans});
+    addMsg('assistant',ans);
+    logQuestion(q,ans);
+  }catch(e){
+    removeTyping();
+    addMsg('assistant','Sorry, there was a connection issue. Please try again in a moment.');
+  }
+  isThinking=false;document.getElementById('send-btn').disabled=false;
+}
+function askQ(btn){document.getElementById('chat-in').value=btn.textContent;sendChat();}
+
+function renderDashboard(){
+  updateMetrics();
+  var c=document.getElementById('dash-items');
+  var active=qLog.filter(function(x){return!x.skipped});
+  if(!active.length){c.innerHTML='<div class="empty-state">No questions logged yet. Questions from the AI assistant will appear here once users start asking them.</div>';return;}
+  var sorted=active.slice().sort(function(a,b){return b.count-a.count});
+  c.innerHTML='';
+  sorted.forEach(function(item,idx){
+    var div=document.createElement('div');div.className='q-item';
+    var aHTML=item.approved
+      ?'<span class="approved-badge">&#10003; Approved &mdash; queued for next update</span>'
+      :'<div class="suggestion-box"><strong>Suggested update:</strong> '+item.suggestion+'</div><div class="action-row"><button class="approve-btn" onclick="approveItem('+idx+')">Approve &rarr; Add to site</button><button class="skip-btn" onclick="skipItem('+idx+')">Skip</button></div>';
+    div.innerHTML='<div class="q-top"><span class="q-text">'+item.q+'</span><span class="q-count">Asked '+item.count+'x</span></div><div class="q-answer">'+item.latestAnswer.substring(0,220)+(item.latestAnswer.length>220?'...':'')+'</div>'+aHTML;
+    c.appendChild(div);
+  });
+  window._dashSorted=sorted;
+}
+function approveItem(idx){if(window._dashSorted&&window._dashSorted[idx]){window._dashSorted[idx].approved=true;}updateMetrics();renderDashboard();}
+function skipItem(idx){if(window._dashSorted&&window._dashSorted[idx]){window._dashSorted[idx].skipped=true;}updateMetrics();renderDashboard();}
+</script>
+</body>
+</html>
