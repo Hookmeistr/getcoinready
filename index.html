@@ -127,6 +127,46 @@ header{background:var(--brand);padding:14px 24px;display:flex;align-items:center
 .gloss-term dt{font-weight:500;color:#1A4A7A;font-size:15px;margin-bottom:4px}
 .gloss-term dd{font-size:14px;color:#555;line-height:1.65;margin-left:0}
 .gloss-term.hidden{display:none}
+.modal-overlay{position:fixed;inset:0;background:rgba(10,25,50,0.75);z-index:1000;display:none;overflow-y:auto;padding:20px}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.modal-box{background:#fff;border-radius:14px;max-width:820px;width:100%;padding:0;overflow:hidden;margin:auto;position:relative}
+.modal-header{background:#1A4A7A;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.modal-header h2{font-family:'Lora',serif;font-size:26px;font-weight:500;color:#fff;line-height:1.2}
+.modal-header p{font-size:14px;color:#B8D4EA;margin-top:6px}
+.modal-close{background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}
+.modal-close:hover{background:rgba(255,255,255,0.3)}
+.modal-body{padding:24px 28px}
+.modal-section{margin-bottom:24px}
+.modal-section h3{font-family:'Lora',serif;font-size:18px;font-weight:500;color:#1A4A7A;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #E2E2E2}
+.modal-section p{font-size:14px;color:#444;line-height:1.8;margin-bottom:10px}
+.modal-section ul{padding-left:20px;margin-bottom:10px}
+.modal-section ul li{font-size:14px;color:#444;line-height:1.8;margin-bottom:4px}
+.modal-visual{background:#E8F1FA;border-radius:10px;padding:20px;margin:16px 0;text-align:center}
+.modal-visual svg{max-width:100%;height:auto}
+.modal-video{background:#000;border-radius:10px;overflow:hidden;margin:16px 0;position:relative;padding-bottom:56.25%;height:0}
+.modal-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.modal-video-placeholder{background:#14407A;border-radius:10px;padding:32px 20px;margin:16px 0;text-align:center;cursor:pointer}
+.modal-video-placeholder p{color:#B8D4EA;font-size:13px;margin-top:8px}
+.modal-play{width:56px;height:56px;background:#7EC8A0;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:22px;color:#1A4A7A}
+.modal-related{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.modal-related-btn{background:#E8F1FA;border:1px solid #B5D4F4;color:#1A4A7A;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.modal-related-btn:hover{background:#1A4A7A;color:#fff}
+.modal-affiliate{background:#EAF3DE;border:1px solid #C0DD97;border-radius:10px;padding:16px;margin-top:6px}
+.modal-affiliate h4{font-size:13px;font-weight:500;color:#3B6D11;margin-bottom:10px}
+.modal-affiliate-btns{display:flex;flex-wrap:wrap;gap:8px}
+.modal-aff-btn{display:inline-block;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all 0.2s;color:#fff}
+.modal-aff-btn.coinbase{background:#0052FF}.modal-aff-btn.coinbase:hover{background:#0040CC}
+.modal-aff-btn.kraken{background:#5741D9}.modal-aff-btn.kraken:hover{background:#4530B8}
+.modal-aff-btn.gemini{background:#00DCFA;color:#111}.modal-aff-btn.gemini:hover{background:#00B8D4}
+.modal-aff-btn.cashapp{background:#00D632;color:#111}.modal-aff-btn.cashapp:hover{background:#00B82A}
+.modal-aff-btn.ledger{background:#1A1A1A}.modal-aff-btn.ledger:hover{background:#333}
+.modal-aff-btn.trezor{background:#E74C3C}.modal-aff-btn.trezor:hover{background:#C0392B}
+.modal-disclosure{font-size:11px;color:#888;margin-top:8px;line-height:1.5}
+.gloss-term dt{cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.gloss-term dt:hover{color:#4A7FB5}
+.gloss-more{font-size:11px;color:#4A7FB5;background:#E8F1FA;border:none;padding:3px 10px;border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0}
+.gloss-term dt:hover .gloss-more{background:#1A4A7A;color:#fff}
+
 .calc-wrap{background:#fff;border:1px solid #E2E2E2;border-radius:10px;padding:24px;box-shadow:0 2px 14px rgba(0,0,0,0.07)}
 .calc-row{margin-bottom:16px}
 .calc-row label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
@@ -231,6 +271,7 @@ footer{background:#1A4A7A;color:#B8D4EA;padding:36px 24px 24px;margin-top:48px}
 .footer-social a:hover{color:#7EC8A0}
 @media(max-width:600px){.header-links{display:none}.nav-tab{padding:12px 10px;font-size:12px}}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 
@@ -588,7 +629,11 @@ function buildGlossary(){
   glossaryTerms.forEach(function(item){
     var letter=item.term[0].toUpperCase();
     if(letter!==currentLetter){var lh=document.createElement('div');lh.className='gloss-letter';lh.textContent=letter;list.appendChild(lh);currentLetter=letter;}
-    var dt=document.createElement('div');dt.className='gloss-term';dt.innerHTML='<dt>'+item.term+'</dt><dd>'+item.def+'</dd>';list.appendChild(dt);
+    var dt=document.createElement('div');dt.className='gloss-term';var hasDetail = glossaryDetails[item.term] ? true : false;
+    dt.innerHTML='<dt' + (hasDetail ? ' data-term="'+item.term.replace(/"/g,'&quot;')+'" class="gloss-clickable"' : '') + '>' +
+      '<span>' + item.term + '</span>' +
+      (hasDetail ? '<button class="gloss-more" data-term="'+item.term.replace(/"/g,'&quot;')+'">Deep dive &rarr;</button>' : '') +
+      '</dt><dd>'+item.def+'</dd>';list.appendChild(dt);
   });
 }
 function filterGloss(q){
@@ -596,7 +641,6 @@ function filterGloss(q){
   document.querySelectorAll('.gloss-term').forEach(function(el){el.classList.toggle('hidden',ql.length>0&&el.textContent.toLowerCase().indexOf(ql)===-1);});
   document.querySelectorAll('.gloss-letter').forEach(function(el){var next=el.nextElementSibling;var vis=false;while(next&&next.classList.contains('gloss-term')){if(!next.classList.contains('hidden'))vis=true;next=next.nextElementSibling;}el.style.display=vis?'':'none';});
 }
-buildGlossary();
 
 var faqs=[
   {q:'Is crypto a scam?',a:'Cryptocurrency itself is not a scam &mdash; it\'s real technology used by millions of people. However, the crypto space attracts many scammers. The best protection: stick to well-known, regulated exchanges like Coinbase, Kraken, or Gemini, and never send money to anyone promising guaranteed returns.'},
@@ -613,6 +657,16 @@ var faqs=[
   {q:'What happens if I forget my password?',a:'For exchange accounts: use the exchange\'s "forgot password" process &mdash; this is why using a real email address is important. For personal wallets (not on an exchange): you can recover your wallet using your seed phrase. This is why your seed phrase is so critical to protect.'}
 ];
 
+
+// Event delegation for glossary term clicks - safely handles all term names
+var glossList = document.getElementById('gloss-list'); if(glossList) glossList.addEventListener('click', function(e){
+  var termEl = e.target.closest('[data-term]');
+  if(termEl){
+    var term = termEl.getAttribute('data-term');
+    if(term && glossaryDetails[term]) openGloss(term);
+  }
+});
+
 function buildFAQ(){
   var list=document.getElementById('faq-list');
   faqs.forEach(function(item,i){
@@ -627,7 +681,6 @@ function toggleFAQ(el,i){
   document.querySelectorAll('.faq-a').forEach(function(a){a.classList.remove('open')});
   if(!isOpen){el.classList.add('open');document.getElementById('faq-a-'+i).classList.add('open');}
 }
-buildFAQ();
 
 function addMsg(role,text){
   var msgs=document.getElementById('chat-msgs');
@@ -718,6 +771,585 @@ function renderDashboard(){
 }
 function approveItem(idx){if(window._dashSorted&&window._dashSorted[idx])window._dashSorted[idx].approved=true;updateMetrics();renderDashboard();}
 function skipItem(idx){if(window._dashSorted&&window._dashSorted[idx])window._dashSorted[idx].skipped=true;updateMetrics();renderDashboard();}
+
+// ═══════════════════════════════════════════════════════
+// GLOSSARY DEEP DIVE DATA
+// ═══════════════════════════════════════════════════════
+var glossaryDetails = {
+
+'Bitcoin (BTC)': {
+  subtitle: 'The original cryptocurrency — digital gold for the modern age',
+  sections: [
+    {
+      title: 'What is Bitcoin?',
+      content: 'Bitcoin is the world\'s first cryptocurrency, created in 2009 by a person or group using the pseudonym Satoshi Nakamoto. It is digital money that exists only on computers and the internet — there are no physical Bitcoin coins or bills. Unlike traditional money issued by governments, no single person, company, or country controls Bitcoin. It operates on a global network of thousands of computers that work together to record and verify every transaction.'
+    },
+    {
+      title: 'Why does Bitcoin have value?',
+      content: 'Bitcoin has value for the same reason gold does — scarcity and trust. There will only ever be 21 million Bitcoin in existence. No government can print more. This built-in scarcity, combined with a growing number of people who accept and trust it, gives it value. Many people think of Bitcoin as "digital gold" — a store of value that holds purchasing power over time. Others use it to send money internationally cheaply and quickly, without going through a bank.'
+    },
+    {
+      title: 'How does Bitcoin work?',
+      content: 'When you send Bitcoin to someone, that transaction is broadcast to thousands of computers around the world. These computers verify that you actually own the Bitcoin you\'re sending (using complex cryptographic math), then permanently record the transaction in a shared ledger called the blockchain. This process takes about 10 minutes. Once recorded, the transaction cannot be reversed or altered by anyone — not even Bitcoin\'s creator.'
+    },
+    {
+      title: 'Key facts to know',
+      list: [
+        'There will only ever be 21 million Bitcoin — about 19.7 million have been mined so far',
+        'You can buy as little as $1 worth — you do not need to buy a whole coin',
+        'Bitcoin has been the best-performing asset of the past decade — but also extremely volatile',
+        'It has dropped more than 80% from its peak value multiple times before recovering',
+        'Transactions are permanent and irreversible — there is no "undo" or customer service'
+      ]
+    }
+  ],
+  visual: 'bitcoin',
+  videoId: 'Gc2en3nHxA4',
+  videoTitle: 'But how does bitcoin actually work? — 3Blue1Brown',
+  related: ['Blockchain','Wallet','Exchange','Mining','Satoshi'],
+  affiliates: ['coinbase','kraken','gemini','cashapp']
+},
+
+'Blockchain': {
+  subtitle: 'The technology that powers Bitcoin, Ethereum, and most cryptocurrencies',
+  sections: [
+    {
+      title: 'What is a blockchain?',
+      content: 'A blockchain is a special kind of database. Imagine a spreadsheet that records every transaction ever made — but instead of being stored on one computer owned by a company, identical copies are stored simultaneously on thousands of computers around the world. When a new transaction is added, it must be verified and agreed upon by the network before it becomes permanent.'
+    },
+    {
+      title: 'Why is it called a "blockchain"?',
+      content: 'Transactions are grouped together into "blocks." Each block contains a set of recent transactions plus a mathematical fingerprint (called a hash) of the previous block. This links every block to the one before it, creating a chain going all the way back to the very first transaction. If someone tried to alter an old transaction, it would change that block\'s fingerprint, breaking the chain — and every computer on the network would immediately see that something was tampered with.'
+    },
+    {
+      title: 'Why does this matter?',
+      content: 'Traditional databases — like your bank\'s records — are controlled by one company. They can make changes, freeze accounts, or be hacked. A blockchain is controlled by no single entity. Changing it would require simultaneously overpowering more than half of the thousands of computers maintaining it — practically impossible and prohibitively expensive. This makes it the most tamper-resistant record-keeping system ever invented.'
+    },
+    {
+      title: 'Beyond cryptocurrency',
+      content: 'While blockchain became famous through Bitcoin, the technology has many potential uses: supply chain tracking (verifying a diamond\'s origin), voting systems, medical records, property ownership, and more. However, most real-world blockchain applications are still early-stage — cryptocurrency remains its most proven use case.'
+    }
+  ],
+  visual: 'blockchain',
+  videoId: 'SSo_EIwHSd4',
+  videoTitle: 'But how does bitcoin actually work? (blockchain section)',
+  related: ['Bitcoin (BTC)','Ethereum (ETH)','Mining','Cryptocurrency'],
+  affiliates: ['coinbase','kraken']
+},
+
+'Wallet': {
+  subtitle: 'Where your crypto keys are stored — and why "not your keys, not your coins" matters',
+  sections: [
+    {
+      title: 'What a wallet actually does',
+      content: 'Despite the name, a crypto wallet does not hold cryptocurrency. Your coins always exist on the blockchain — a global public ledger. What a wallet holds is your private key: a secret code that proves you own the coins associated with your address. Think of it like this: the blockchain is a massive vault with everyone\'s balance visible. Your wallet holds the combination to your compartment. Whoever has the combination controls the contents.'
+    },
+    {
+      title: 'Hot wallets — convenient but connected',
+      content: 'A hot wallet is any wallet connected to the internet. The wallet built into your Coinbase or Kraken account is a hot wallet. They are convenient — you can access your crypto instantly from any device — but because they are online, they are vulnerable to hacking, phishing attacks, and exchange failures. For small amounts you plan to trade actively, a hot wallet on a reputable exchange is fine. The exchange\'s insurance and security measures provide some protection.'
+    },
+    {
+      title: 'Cold wallets — secure but offline',
+      content: 'A cold wallet stores your private keys completely offline on a physical device, typically resembling a USB drive. To send crypto, you physically connect the device and confirm the transaction on its screen. Because it is never connected to the internet during normal use, it is essentially immune to remote hacking. Cold wallets are recommended for any significant amount of crypto you plan to hold long term rather than trade actively.'
+    },
+    {
+      title: 'The golden rule',
+      content: '"Not your keys, not your coins." This phrase means: if you store crypto on an exchange and the exchange is hacked, goes bankrupt, or freezes withdrawals — your funds could be lost. This happened to customers of FTX, Celsius, and several other exchanges. Owning your private keys via a personal wallet means only you can access your funds, regardless of what happens to any company.'
+    },
+    {
+      title: 'Which should a beginner use?',
+      list: [
+        'Starting out with under $500: leave it on a reputable regulated exchange with 2FA enabled',
+        'Holding $500–$2,000: consider a cold wallet',
+        'Holding $2,000+: a cold wallet is strongly recommended',
+        'Always back up your seed phrase on paper stored somewhere physically safe'
+      ]
+    }
+  ],
+  visual: 'wallet',
+  videoId: 'SQyg9pyJ1Ac',
+  videoTitle: 'Crypto Wallets Explained — Whiteboard Crypto',
+  related: ['Seed phrase','Private key','Cold wallet','Hot wallet','Exchange'],
+  affiliates: ['ledger','trezor']
+},
+
+'Ethereum (ETH)': {
+  subtitle: 'More than a currency — a global programmable computer',
+  sections: [
+    {
+      title: 'What is Ethereum?',
+      content: 'Ethereum is a blockchain platform launched in 2015 by Vitalik Buterin. Like Bitcoin, it has a native cryptocurrency called Ether (ETH). But Ethereum was designed to be much more than money — it is a programmable platform where developers can build and deploy applications that run on the blockchain without any central controlling company.'
+    },
+    {
+      title: 'What makes Ethereum different from Bitcoin?',
+      content: 'Bitcoin does one thing extremely well: storing and transferring value. Ethereum is a general-purpose programmable blockchain. Think of Bitcoin as a calculator and Ethereum as a smartphone — both valuable, but they serve different purposes. Ethereum introduced "smart contracts" — self-executing programs that automatically carry out an agreement when conditions are met, without needing a middleman.'
+    },
+    {
+      title: 'Smart contracts explained simply',
+      content: 'A smart contract is code that lives on the blockchain and executes automatically. Example: imagine a bet between two people — "I bet $100 that the price of Bitcoin will be above $100,000 on January 1st." With a smart contract, both parties lock their $100 into the contract. On January 1st, the contract automatically checks the price and sends the full $200 to the winner — no bank, no lawyer, no trust required.'
+    },
+    {
+      title: 'What is built on Ethereum?',
+      content: 'The vast majority of DeFi (decentralized finance) applications, most NFTs, and thousands of tokens are built on Ethereum. It hosts more developer activity than any other blockchain. This has made ETH valuable as "digital fuel" — you need to pay ETH (as "gas fees") to use any application built on the Ethereum network.'
+    },
+    {
+      title: 'Should a beginner buy Ethereum?',
+      content: 'Ethereum is the second-most established cryptocurrency after Bitcoin and has been running continuously since 2015. Most beginners who venture beyond Bitcoin start with Ethereum. It is available on every major exchange. As always — only invest what you can afford to lose, and understand what you are buying before buying it.'
+    }
+  ],
+  visual: 'ethereum',
+  videoId: 'jxLkbJozKbY',
+  videoTitle: 'What is Ethereum? — Ethereum Foundation',
+  related: ['Bitcoin (BTC)','Blockchain','Smart contract','DeFi (Decentralized Finance)','Gas fees','Staking'],
+  affiliates: ['coinbase','kraken','gemini']
+},
+
+'Seed phrase': {
+  subtitle: 'The master key to your crypto — the most important thing to protect',
+  sections: [
+    {
+      title: 'What is a seed phrase?',
+      content: 'A seed phrase — also called a recovery phrase or mnemonic phrase — is a sequence of 12 or 24 random English words generated by your wallet when you first set it up. These words, in their exact order, can be used to completely restore your wallet and all its funds on any compatible device anywhere in the world. Examples of what these words look like: "abandon ability able about above absent absorb abstract absurd abuse access accident."'
+    },
+    {
+      title: 'Why it exists',
+      content: 'Crypto private keys are 256-bit numbers — impossibly long strings of characters that no human could memorize. A seed phrase converts that mathematical complexity into a memorable sequence of common words. The words appear random, but they encode your private key using a standardized system (BIP-39) that all major wallets understand. Any compatible wallet software can take your 12-24 words and reconstruct your entire wallet exactly.'
+    },
+    {
+      title: 'How to protect your seed phrase',
+      list: [
+        'Write it down by hand on paper — never type it on any device or take a photo',
+        'Write it on multiple pieces of paper and store them in separate secure locations',
+        'Never store it digitally — not in email drafts, cloud storage, notes apps, or text files',
+        'Never share it with anyone — not customer support, not family, not a "helpful" stranger online',
+        'Consider engraving it on a metal plate for fire and water resistance',
+        'Treat it like cash — whoever has it can take everything'
+      ]
+    },
+    {
+      title: 'If you lose your seed phrase',
+      content: 'If you lose your seed phrase and your device breaks or is lost, your crypto is gone forever. There is no password reset, no customer support that can help, no government agency to appeal to. This is why backing it up properly before storing any significant amount is absolutely critical. The words are the wallet — nothing else matters.'
+    },
+    {
+      title: 'Seed phrase scams to know',
+      content: 'Scammers will go to extraordinary lengths to trick you into revealing your seed phrase. They pose as customer support, create fake wallet apps, send phishing emails, and even call you on the phone. The rule is absolute and has no exceptions: no legitimate person, company, software, or website ever needs your seed phrase. Any request for it is a scam, always.'
+    }
+  ],
+  visual: 'seedphrase',
+  videoId: 'b3bU0wVTCbU',
+  videoTitle: 'What is a Seed Phrase? — Whiteboard Crypto',
+  related: ['Private key','Wallet','Cold wallet','Hot wallet'],
+  affiliates: ['ledger','trezor']
+},
+
+'Exchange': {
+  subtitle: 'Where you buy, sell, and trade cryptocurrency — choosing the right one matters',
+  sections: [
+    {
+      title: 'What is a crypto exchange?',
+      content: 'A cryptocurrency exchange is a platform where buyers and sellers meet to trade cryptocurrencies. Think of it as a combination of a stock exchange and a currency conversion desk. You deposit regular money (dollars), buy cryptocurrency at the current market price, and can later sell it back to dollars or trade it for other cryptocurrencies. The exchange charges a small fee for each transaction.'
+    },
+    {
+      title: 'Centralized vs decentralized exchanges',
+      content: 'Centralized exchanges (like Coinbase, Kraken, and Gemini) are run by companies. They are regulated, insured, and have customer support. You create an account, verify your identity, and the exchange holds your crypto on your behalf. Decentralized exchanges (DEXs) operate without a company — they are software running on the blockchain. No account needed, no identity verification, no one to call if something goes wrong. For beginners, centralized regulated exchanges are by far the safer choice.'
+    },
+    {
+      title: 'What to look for in an exchange',
+      list: [
+        'Regulation: is it registered with US financial authorities?',
+        'Security: does it store most funds in cold storage? Has it been hacked before?',
+        'Fees: what percentage do they charge per trade? Are there deposit or withdrawal fees?',
+        'Ease of use: is the interface beginner-friendly?',
+        'Customer support: can you reach a real person if something goes wrong?',
+        'Coin selection: does it offer the cryptocurrencies you want?'
+      ]
+    },
+    {
+      title: 'Comparison of top US exchanges',
+      content: 'Coinbase is the most beginner-friendly but charges the highest fees (~1.5%). Kraken has lower fees and an excellent security record but a steeper learning curve. Gemini is regulated under New York\'s strict standards with a clean interface and similar fees to Coinbase. Cash App is the simplest option but only supports Bitcoin. All four are legitimate, regulated, and available to US residents.'
+    }
+  ],
+  visual: 'exchange',
+  videoId: 'ixQCFbJVJhU',
+  videoTitle: 'Centralized vs Decentralized Exchanges Explained',
+  related: ['Wallet','KYC (Know Your Customer)','Hot wallet','Stablecoin'],
+  affiliates: ['coinbase','kraken','gemini','cashapp']
+},
+
+'Cold wallet': {
+  subtitle: 'The most secure way to store cryptocurrency — your own personal vault',
+  sections: [
+    {
+      title: 'What is a cold wallet?',
+      content: 'A cold wallet — also called a hardware wallet or cold storage — is a physical electronic device that stores your cryptocurrency private keys completely offline. It connects to your computer via USB only when you need to make a transaction, and even then, all transaction signing happens on the device itself, never exposing your keys to the internet. Think of it as a combination safe that fits in your pocket.'
+    },
+    {
+      title: 'Why cold storage is more secure',
+      content: 'The fundamental vulnerability of hot wallets (exchange accounts, mobile apps) is their internet connection. Remote hackers, malware, phishing attacks, and exchange failures can all compromise funds stored online. A cold wallet eliminates this attack surface entirely. Even if your computer is completely infected with malware, a hacker cannot steal funds from a hardware wallet because the private key never leaves the physical device.'
+    },
+    {
+      title: 'How a transaction works with a cold wallet',
+      list: [
+        'You connect your hardware wallet to your computer via USB',
+        'You open the wallet software and initiate a transaction',
+        'Transaction details are sent to the hardware device',
+        'You physically verify the details on the device\'s small screen',
+        'You physically press a button on the device to confirm',
+        'The signed transaction is sent to the blockchain',
+        'You disconnect the device — your keys return to offline safety'
+      ]
+    },
+    {
+      title: 'Which hardware wallet should I buy?',
+      content: 'The two most trusted brands are Ledger and Trezor, both established companies with years of track records. Ledger\'s Nano X ($149) supports Bluetooth for mobile use and holds over 5,500 coins. The Ledger Nano S Plus ($79) is a more affordable option. Trezor\'s Model One ($69) and Model T ($219) are open-source alternatives. Only buy directly from the manufacturer\'s official website — counterfeit hardware wallets have been used to steal funds.'
+    }
+  ],
+  visual: 'coldwallet',
+  videoId: 'aZkNa1PGou0',
+  videoTitle: 'Hardware Wallets Explained — Ledger vs Trezor',
+  related: ['Wallet','Seed phrase','Private key','Hot wallet'],
+  affiliates: ['ledger','trezor']
+},
+
+'Scam': {
+  subtitle: 'The most important thing to understand before investing a single dollar',
+  sections: [
+    {
+      title: 'Why crypto attracts scammers',
+      content: 'Cryptocurrency transactions are irreversible. Once you send crypto to a scammer, it is gone forever — there is no bank to call, no credit card chargeback, no fraud protection. This makes crypto the preferred payment method for scammers worldwide. The crypto space attracts billions of dollars in scam losses every year, disproportionately targeting beginners and older adults. Understanding the most common scams before you invest is arguably more important than understanding how crypto works.'
+    },
+    {
+      title: 'The absolute rule with no exceptions',
+      content: 'No legitimate person, company, exchange, government agency, celebrity, or AI assistant will ever: ask for your seed phrase or private key; promise to double or multiply your crypto; tell you to send crypto first to receive more back; request remote access to your computer to "fix" a problem; or pressure you to invest quickly before an "opportunity" expires. Every single request like these is a scam. No exceptions. Ever.'
+    },
+    {
+      title: 'The six most common scams',
+      list: [
+        'Doubling scams: "send 1 BTC, receive 2 BTC back" — never real',
+        'Romance scams (pig butchering): weeks of relationship building before investment pitch',
+        'Fake exchange websites: identical-looking copies designed to steal your login',
+        'Fake customer support: scammers posing as Coinbase/Kraken/MetaMask staff in DMs',
+        'Pump and dump: coordinated groups inflating a coin\'s price then dumping',
+        'Rug pulls: developers launching a coin, collecting investment, then disappearing'
+      ]
+    },
+    {
+      title: 'If you think you\'ve been scammed',
+      content: 'Unfortunately, crypto transactions cannot be reversed. However: report it to the FBI\'s Internet Crime Complaint Center (IC3.gov), report it to the FTC at ReportFraud.ftc.gov, report it to the exchange if a fake platform was involved, and document everything including wallet addresses and communications. Law enforcement is increasingly successful at tracing and recovering crypto from scammers, though it is not guaranteed.'
+    }
+  ],
+  visual: 'scam',
+  videoId: 'vDRE-PRJN3w',
+  videoTitle: 'Crypto Scams Explained — How to Protect Yourself',
+  related: ['Exchange','Wallet','Seed phrase','Rug pull'],
+  affiliates: []
+}
+
+};
+
+// ═══════════════════════════════════════════════════════
+// MODAL VISUALS (SVG diagrams for each term)
+// ═══════════════════════════════════════════════════════
+var glossaryVisuals = {
+
+bitcoin: `<svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <rect x="10" y="70" width="80" height="40" rx="6" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="50" y="86" font-family="DM Sans,sans-serif" font-size="10" fill="#1A4A7A" text-anchor="middle">You</text>
+  <text x="50" y="100" font-family="DM Sans,sans-serif" font-size="9" fill="#4A7FB5" text-anchor="middle">0.0052 BTC</text>
+  <path d="M 92 90 L 148 90" stroke="#7EC8A0" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="120" y="84" font-family="DM Sans,sans-serif" font-size="9" fill="#3B6D11" text-anchor="middle">sends $50</text>
+  <rect x="150" y="60" width="100" height="60" rx="6" fill="#14407A" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="200" y="82" font-family="DM Sans,sans-serif" font-size="10" fill="#fff" text-anchor="middle">Blockchain</text>
+  <text x="200" y="97" font-family="DM Sans,sans-serif" font-size="9" fill="#B8D4EA" text-anchor="middle">verifies &amp; records</text>
+  <text x="200" y="110" font-family="DM Sans,sans-serif" font-size="9" fill="#7EC8A0" text-anchor="middle">permanently</text>
+  <path d="M 252 90 L 308 90" stroke="#7EC8A0" stroke-width="2" marker-end="url(#arr2)"/>
+  <rect x="310" y="70" width="80" height="40" rx="6" fill="#EAF3DE" stroke="#C0DD97" stroke-width="1.5"/>
+  <text x="350" y="86" font-family="DM Sans,sans-serif" font-size="10" fill="#3B6D11" text-anchor="middle">Recipient</text>
+  <text x="350" y="100" font-family="DM Sans,sans-serif" font-size="9" fill="#3B6D11" text-anchor="middle">receives BTC</text>
+  <text x="200" y="160" font-family="DM Sans,sans-serif" font-size="10" fill="#888" text-anchor="middle">No bank. No middleman. ~10 minutes. Irreversible.</text>
+  <text x="200" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">How a Bitcoin transaction works</text>
+  <defs><marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7EC8A0" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+</svg>`,
+
+blockchain: `<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">How blocks chain together</text>
+  <rect x="10" y="40" width="90" height="70" rx="6" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="55" y="60" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">Block 1</text>
+  <text x="55" y="74" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">Tx: A→B 1 BTC</text>
+  <text x="55" y="86" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">Tx: C→D 0.5 BTC</text>
+  <rect x="12" y="95" width="86" height="10" rx="3" fill="#14407A"/>
+  <text x="55" y="103" font-family="DM Sans,sans-serif" font-size="7" fill="#7EC8A0" text-anchor="middle">Hash: 00a3f...</text>
+  <path d="M 102 75 L 128 75" stroke="#4A7FB5" stroke-width="2" marker-end="url(#arr3)"/>
+  <rect x="130" y="40" width="90" height="70" rx="6" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="175" y="60" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">Block 2</text>
+  <text x="175" y="74" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">Prev: 00a3f...</text>
+  <text x="175" y="86" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">Tx: E→F 2 BTC</text>
+  <rect x="132" y="95" width="86" height="10" rx="3" fill="#14407A"/>
+  <text x="175" y="103" font-family="DM Sans,sans-serif" font-size="7" fill="#7EC8A0" text-anchor="middle">Hash: 00b7c...</text>
+  <path d="M 222 75 L 248 75" stroke="#4A7FB5" stroke-width="2" marker-end="url(#arr3)"/>
+  <rect x="250" y="40" width="90" height="70" rx="6" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="295" y="60" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">Block 3</text>
+  <text x="295" y="74" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">Prev: 00b7c...</text>
+  <text x="295" y="86" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">Tx: G→H 0.1 BTC</text>
+  <rect x="252" y="95" width="86" height="10" rx="3" fill="#14407A"/>
+  <text x="295" y="103" font-family="DM Sans,sans-serif" font-size="7" fill="#7EC8A0" text-anchor="middle">Hash: 00c9d...</text>
+  <text x="355" y="75" font-family="DM Sans,sans-serif" font-size="18" fill="#4A7FB5" text-anchor="middle">...</text>
+  <text x="200" y="145" font-family="DM Sans,sans-serif" font-size="10" fill="#888" text-anchor="middle">Each block contains the previous block\'s fingerprint — altering any block breaks the chain</text>
+  <defs><marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#4A7FB5" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+</svg>`,
+
+wallet: `<svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">Hot wallet vs Cold wallet</text>
+  <rect x="20" y="36" width="160" height="110" rx="8" fill="#FBF4E8" stroke="#D4B070" stroke-width="1.5"/>
+  <text x="100" y="56" font-family="DM Sans,sans-serif" font-size="11" font-weight="500" fill="#B07D2A" text-anchor="middle">Hot Wallet</text>
+  <text x="100" y="72" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">(Exchange / App)</text>
+  <circle cx="100" cy="100" r="22" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="100" y="104" font-family="DM Sans,sans-serif" font-size="18" text-anchor="middle">&#128247;</text>
+  <text x="100" y="132" font-family="DM Sans,sans-serif" font-size="9" fill="#B07D2A" text-anchor="middle">&#9888; Internet connected</text>
+  <text x="100" y="143" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">Convenient, some risk</text>
+  <rect x="220" y="36" width="160" height="110" rx="8" fill="#EAF3DE" stroke="#C0DD97" stroke-width="1.5"/>
+  <text x="300" y="56" font-family="DM Sans,sans-serif" font-size="11" font-weight="500" fill="#3B6D11" text-anchor="middle">Cold Wallet</text>
+  <text x="300" y="72" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">(Hardware Device)</text>
+  <circle cx="300" cy="100" r="22" fill="#EAF3DE" stroke="#C0DD97" stroke-width="1.5"/>
+  <text x="300" y="104" font-family="DM Sans,sans-serif" font-size="18" text-anchor="middle">&#128274;</text>
+  <text x="300" y="132" font-family="DM Sans,sans-serif" font-size="9" fill="#3B6D11" text-anchor="middle">&#10003; Offline — much safer</text>
+  <text x="300" y="143" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">Recommended for larger amounts</text>
+</svg>`,
+
+ethereum: `<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">Bitcoin vs Ethereum — key differences</text>
+  <rect x="20" y="36" width="165" height="110" rx="8" fill="#FBF4E8" stroke="#D4B070" stroke-width="1.5"/>
+  <text x="102" y="56" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#B07D2A" text-anchor="middle">&#8383; Bitcoin</text>
+  <text x="102" y="74" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Purpose: Digital money</text>
+  <text x="102" y="88" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Supply: 21 million max</text>
+  <text x="102" y="102" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Think of it as: Digital gold</text>
+  <text x="102" y="116" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Best for: Storing value</text>
+  <text x="102" y="130" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Created: 2009</text>
+  <rect x="215" y="36" width="165" height="110" rx="8" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="297" y="56" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">&#9830; Ethereum</text>
+  <text x="297" y="74" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Purpose: Programmable platform</text>
+  <text x="297" y="88" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Supply: No hard limit</text>
+  <text x="297" y="102" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Think of it as: Digital computer</text>
+  <text x="297" y="116" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Best for: Apps &amp; smart contracts</text>
+  <text x="297" y="130" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">Created: 2015</text>
+</svg>`,
+
+seedphrase: `<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">What a seed phrase looks like</text>
+  <rect x="20" y="34" width="360" height="80" rx="8" fill="#14407A" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="40" y="58" font-family="DM Sans,monospace" font-size="11" fill="#7EC8A0">1. abandon</text>
+  <text x="155" y="58" font-family="DM Sans,monospace" font-size="11" fill="#7EC8A0">2. ability</text>
+  <text x="265" y="58" font-family="DM Sans,monospace" font-size="11" fill="#7EC8A0">3. able</text>
+  <text x="40" y="76" font-family="DM Sans,monospace" font-size="11" fill="#7EC8A0">4. about</text>
+  <text x="155" y="76" font-family="DM Sans,monospace" font-size="11" fill="#7EC8A0">5. above</text>
+  <text x="265" y="76" font-family="DM Sans,monospace" font-size="11" fill="#7EC8A0">6. absent</text>
+  <text x="40" y="94" font-family="DM Sans,monospace" font-size="11" fill="#B8D4EA">7. absorb</text>
+  <text x="155" y="94" font-family="DM Sans,monospace" font-size="11" fill="#B8D4EA">8. abstract</text>
+  <text x="265" y="94" font-family="DM Sans,monospace" font-size="11" fill="#B8D4EA">...</text>
+  <rect x="20" y="122" width="360" height="28" rx="6" fill="#FCEBEB" stroke="#F09595" stroke-width="1"/>
+  <text x="200" y="140" font-family="DM Sans,sans-serif" font-size="10" fill="#A32D2D" text-anchor="middle">&#9888; Never share this with anyone. Anyone who has these words controls your funds.</text>
+</svg>`,
+
+exchange: `<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">How a crypto exchange works</text>
+  <rect x="15" y="40" width="80" height="50" rx="6" fill="#E8F1FA" stroke="#4A7FB5" stroke-width="1.5"/>
+  <text x="55" y="62" font-family="DM Sans,sans-serif" font-size="10" fill="#1A4A7A" text-anchor="middle">You</text>
+  <text x="55" y="76" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">deposit $</text>
+  <path d="M 97 60 L 143 60" stroke="#4A7FB5" stroke-width="1.5" marker-end="url(#arr4)"/>
+  <text x="120" y="54" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">buy order</text>
+  <rect x="145" y="30" width="110" height="100" rx="8" fill="#1A4A7A"/>
+  <text x="200" y="55" font-family="DM Sans,sans-serif" font-size="11" fill="#fff" text-anchor="middle">Exchange</text>
+  <text x="200" y="70" font-family="DM Sans,sans-serif" font-size="9" fill="#B8D4EA" text-anchor="middle">matches buyers</text>
+  <text x="200" y="82" font-family="DM Sans,sans-serif" font-size="9" fill="#B8D4EA" text-anchor="middle">and sellers</text>
+  <text x="200" y="98" font-family="DM Sans,sans-serif" font-size="8" fill="#7EC8A0" text-anchor="middle">charges ~1% fee</text>
+  <path d="M 257 60 L 303 60" stroke="#7EC8A0" stroke-width="1.5" marker-end="url(#arr5)"/>
+  <text x="280" y="54" font-family="DM Sans,sans-serif" font-size="8" fill="#555" text-anchor="middle">crypto sent</text>
+  <rect x="305" y="40" width="80" height="50" rx="6" fill="#EAF3DE" stroke="#C0DD97" stroke-width="1.5"/>
+  <text x="345" y="62" font-family="DM Sans,sans-serif" font-size="10" fill="#3B6D11" text-anchor="middle">Your wallet</text>
+  <text x="345" y="76" font-family="DM Sans,sans-serif" font-size="9" fill="#555" text-anchor="middle">holds BTC/ETH</text>
+  <text x="200" y="150" font-family="DM Sans,sans-serif" font-size="10" fill="#888" text-anchor="middle">Coinbase &bull; Kraken &bull; Gemini &bull; Cash App — all regulated US options</text>
+  <defs>
+    <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#4A7FB5" stroke-width="1.5" stroke-linecap="round"/></marker>
+    <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7EC8A0" stroke-width="1.5" stroke-linecap="round"/></marker>
+  </defs>
+</svg>`,
+
+coldwallet: `<svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A4A7A" text-anchor="middle">How a hardware wallet protects you</text>
+  <rect x="20" y="40" width="100" height="80" rx="8" fill="#FCEBEB" stroke="#F09595" stroke-width="1.5"/>
+  <text x="70" y="65" font-family="DM Sans,sans-serif" font-size="10" fill="#A32D2D" text-anchor="middle">&#128124; Hacker</text>
+  <text x="70" y="82" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">tries to steal</text>
+  <text x="70" y="95" font-family="DM Sans,sans-serif" font-size="9" fill="#888" text-anchor="middle">your keys</text>
+  <path d="M 122 80 L 168 80" stroke="#A32D2D" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr6)"/>
+  <rect x="170" y="40" width="100" height="80" rx="8" fill="#14407A" stroke="#4A7FB5" stroke-width="2"/>
+  <text x="220" y="68" font-family="DM Sans,sans-serif" font-size="10" fill="#fff" text-anchor="middle">Your Computer</text>
+  <text x="220" y="84" font-family="DM Sans,sans-serif" font-size="9" fill="#B8D4EA" text-anchor="middle">(possibly infected</text>
+  <text x="220" y="96" font-family="DM Sans,sans-serif" font-size="9" fill="#B8D4EA" text-anchor="middle">with malware)</text>
+  <path d="M 272 80 L 298 80" stroke="#7EC8A0" stroke-width="1.5" marker-end="url(#arr7)"/>
+  <text x="285" y="74" font-family="DM Sans,sans-serif" font-size="8" fill="#3B6D11" text-anchor="middle">USB only</text>
+  <rect x="300" y="40" width="80" height="80" rx="8" fill="#EAF3DE" stroke="#C0DD97" stroke-width="2"/>
+  <text x="340" y="68" font-family="DM Sans,sans-serif" font-size="10" fill="#3B6D11" text-anchor="middle">&#128274; Hardware</text>
+  <text x="340" y="82" font-family="DM Sans,sans-serif" font-size="10" fill="#3B6D11" text-anchor="middle">Wallet</text>
+  <text x="340" y="96" font-family="DM Sans,sans-serif" font-size="8" fill="#888" text-anchor="middle">Keys never leave</text>
+  <text x="170" y="138" font-family="DM Sans,sans-serif" font-size="9" fill="#A32D2D" text-anchor="middle">&#10008; Hacker cannot reach keys — they never touch the internet</text>
+  <defs>
+    <marker id="arr6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#A32D2D" stroke-width="1.5" stroke-linecap="round"/></marker>
+    <marker id="arr7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7EC8A0" stroke-width="1.5" stroke-linecap="round"/></marker>
+  </defs>
+</svg>`,
+
+scam: `<svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" style="max-width:400px">
+  <text x="200" y="22" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#A32D2D" text-anchor="middle">The golden rule — no exceptions</text>
+  <rect x="20" y="36" width="360" height="100" rx="8" fill="#FCEBEB" stroke="#F09595" stroke-width="1.5"/>
+  <text x="200" y="62" font-family="DM Sans,sans-serif" font-size="11" fill="#A32D2D" text-anchor="middle" font-weight="500">If anyone asks for ANY of these — it is a scam:</text>
+  <text x="60" y="82" font-family="DM Sans,sans-serif" font-size="10" fill="#8B2020">&#10007; Your seed phrase or recovery words</text>
+  <text x="60" y="96" font-family="DM Sans,sans-serif" font-size="10" fill="#8B2020">&#10007; Your private key</text>
+  <text x="60" y="110" font-family="DM Sans,sans-serif" font-size="10" fill="#8B2020">&#10007; Your exchange password</text>
+  <text x="220" y="82" font-family="DM Sans,sans-serif" font-size="10" fill="#8B2020">&#10007; To send crypto first to "get more"</text>
+  <text x="220" y="96" font-family="DM Sans,sans-serif" font-size="10" fill="#8B2020">&#10007; Remote access to your computer</text>
+  <text x="220" y="110" font-family="DM Sans,sans-serif" font-size="10" fill="#8B2020">&#10007; Urgent action to not miss out</text>
+  <text x="200" y="128" font-family="DM Sans,sans-serif" font-size="9" fill="#A32D2D" text-anchor="middle">100% of the time. No exceptions. No legitimate entity ever asks for these.</text>
+</svg>`
+
+};
+
+// ═══════════════════════════════════════════════════════
+// MODAL FUNCTIONS
+// ═══════════════════════════════════════════════════════
+
+// Initialise after DOM is ready
+document.addEventListener('DOMContentLoaded', function(){
+  buildGlossary();
+  buildFAQ();
+
+  var glossList = document.getElementById('gloss-list');
+  if(glossList) glossList.addEventListener('click', function(e){
+    var termEl = e.target.closest('[data-term]');
+    if(termEl){
+      var term = termEl.getAttribute('data-term');
+      if(term && glossaryDetails[term]) openGloss(term);
+    }
+  });
+
+  var modalBody = document.getElementById('modal-body');
+  if(modalBody) modalBody.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-term]');
+    if(btn && btn.classList.contains('modal-related-btn')){
+      var term = btn.getAttribute('data-term');
+      if(term && glossaryDetails[term]) openGloss(term);
+    }
+  });
+});
+
+function openGloss(termName){
+  var detail = glossaryDetails[termName];
+  if(!detail) return;
+
+  document.getElementById('modal-title').textContent = termName;
+  document.getElementById('modal-subtitle').textContent = detail.subtitle || '';
+
+  var body = document.getElementById('modal-body');
+  var html = '';
+
+  // Visual diagram
+  if(detail.visual && glossaryVisuals[detail.visual]){
+    html += '<div class="modal-visual">' + glossaryVisuals[detail.visual] + '</div>';
+  }
+
+  // Content sections
+  detail.sections.forEach(function(sec){
+    html += '<div class="modal-section"><h3>' + sec.title + '</h3>';
+    if(sec.content) html += '<p>' + sec.content + '</p>';
+    if(sec.list){
+      html += '<ul>';
+      sec.list.forEach(function(item){ html += '<li>' + item + '</li>'; });
+      html += '</ul>';
+    }
+    html += '</div>';
+  });
+
+  // Video placeholder
+  if(detail.videoId){
+    html += '<div class="modal-section"><h3>Watch &amp; Learn</h3>';
+    html += '<div class="modal-video-placeholder" onclick="loadVideo(\'' + detail.videoId + '\', this)">';
+    html += '<div class="modal-play">&#9654;</div>';
+    html += '<p>' + (detail.videoTitle || 'Educational video') + '</p>';
+    html += '<p style="font-size:11px;color:#7A9ABA;margin-top:4px">Click to load YouTube video</p>';
+    html += '</div></div>';
+  }
+
+  // Related terms
+  if(detail.related && detail.related.length){
+    html += '<div class="modal-section"><h3>Related Terms</h3><div class="modal-related">';
+    detail.related.forEach(function(term){
+      html += '<button class="modal-related-btn" data-term="' + term.replace(/"/g,'&quot;') + '">' + term + '</button>';
+    });
+    html += '</div></div>';
+  }
+
+  // Affiliate links
+  if(detail.affiliates && detail.affiliates.length && typeof AFFILIATE !== 'undefined'){
+    var affHtml = '';
+    detail.affiliates.forEach(function(key){
+      if(AFFILIATE[key]){
+        var label = key.charAt(0).toUpperCase() + key.slice(1);
+        affHtml += '<a href="' + AFFILIATE[key] + '" class="modal-aff-btn ' + key + '" target="_blank">' + label + '</a>';
+      }
+    });
+    if(affHtml){
+      html += '<div class="modal-section"><div class="modal-affiliate">';
+      html += '<h4>Open an account on a trusted platform:</h4>';
+      html += '<div class="modal-affiliate-btns">' + affHtml + '</div>';
+      html += '<p class="modal-disclosure">' + AFFILIATE.disclosure + '</p>';
+      html += '</div></div>';
+    }
+  }
+
+  body.innerHTML = html;
+  document.getElementById('gloss-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function loadVideo(videoId, el){
+  var iframe = document.createElement('div');
+  iframe.className = 'modal-video';
+  iframe.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" allowfullscreen allow="autoplay"></iframe>';
+  el.parentNode.replaceChild(iframe, el);
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('gloss-modal')) closeModalDirect();
+}
+function closeModalDirect(){
+  document.getElementById('gloss-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModalDirect(); });
+
+// Event delegation for modal related term buttons
+var modalBody = document.getElementById('modal-body'); if(modalBody) modalBody.addEventListener('click', function(e){
+  var btn = e.target.closest('[data-term]');
+  if(btn && btn.classList.contains('modal-related-btn')){
+    var term = btn.getAttribute('data-term');
+    if(term && glossaryDetails[term]) openGloss(term);
+  }
+});
+
 </script>
+
+<!-- GLOSSARY MODAL -->
+<div class="modal-overlay" id="gloss-modal" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header">
+      <div>
+        <h2 id="modal-title">Term</h2>
+        <p id="modal-subtitle"></p>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 </body>
 </html>
