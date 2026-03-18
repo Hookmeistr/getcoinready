@@ -417,21 +417,23 @@ footer{background:#1A4A7A;color:#B8D4EA;padding:36px 24px 24px;margin-top:48px}
 <!-- AI CHAT -->
 <div class="panel" id="panel-chat">
   <div class="chat-header"><div class="eyebrow">AI assistant</div><h2>Ask anything about getting started with crypto</h2><p>Our AI assistant answers in plain English for complete beginners. Questions are logged anonymously to help improve this guide.</p></div>
+  <p style="font-size:13px;color:#555;margin-bottom:10px">Click a common question for an instant answer &mdash; or type any question below to ask the AI:</p>
   <div class="suggested-qs">
-    <button class="sug-btn" onclick="askQ(this)">What is a seed phrase?</button>
-    <button class="sug-btn" onclick="askQ(this)">Is crypto safe for beginners?</button>
-    <button class="sug-btn" onclick="askQ(this)">How much should I start with?</button>
-    <button class="sug-btn" onclick="askQ(this)">Bitcoin vs Ethereum &mdash; what's the difference?</button>
-    <button class="sug-btn" onclick="askQ(this)">Do I need to pay taxes on crypto?</button>
-    <button class="sug-btn" onclick="askQ(this)">What is a cold wallet?</button>
-    <button class="sug-btn" onclick="askQ(this)">How do I know if a platform is legitimate?</button>
-    <button class="sug-btn" onclick="askQ(this)">What happens if I lose my password?</button>
+    <button class="sug-btn" onclick="showPreset(this,'seed')">What is a seed phrase?</button>
+    <button class="sug-btn" onclick="showPreset(this,'safe')">Is crypto safe for beginners?</button>
+    <button class="sug-btn" onclick="showPreset(this,'howmuch')">How much should I start with?</button>
+    <button class="sug-btn" onclick="showPreset(this,'btceth')">Bitcoin vs Ethereum &mdash; what's the difference?</button>
+    <button class="sug-btn" onclick="showPreset(this,'taxes')">Do I need to pay taxes on crypto?</button>
+    <button class="sug-btn" onclick="showPreset(this,'coldwallet')">What is a cold wallet?</button>
+    <button class="sug-btn" onclick="showPreset(this,'legit')">How do I know if a platform is legitimate?</button>
+    <button class="sug-btn" onclick="showPreset(this,'password')">What happens if I lose my password?</button>
   </div>
+  <div id="preset-answer" style="display:none;background:#E8F1FA;border:1px solid #B5D4F4;border-radius:10px;padding:14px 16px;margin-bottom:12px;font-size:14px;color:#1A3A5A;line-height:1.7"></div>
   <div class="chat-box">
-    <div class="chat-messages" id="chat-msgs"><div class="msg"><div class="msg-avatar av-ai">AI</div><div class="msg-bubble">Hi! I'm here to answer any questions you have about getting started with crypto &mdash; wallets, platforms, safety, taxes, or anything else. What would you like to know?</div></div></div>
-    <div class="chat-input-row"><input type="text" id="chat-in" placeholder="Type your question here..." onkeydown="if(event.key==='Enter')sendChat()"><button class="send-btn" id="send-btn" onclick="sendChat()">Ask</button></div>
+    <div class="chat-messages" id="chat-msgs"><div class="msg"><div class="msg-avatar av-ai">AI</div><div class="msg-bubble">Hi! I'm here to answer any questions you have about getting started with crypto &mdash; wallets, platforms, safety, taxes, or anything else. Use the quick answers above for common questions, or type anything below for a full AI response.</div></div></div>
+    <div class="chat-input-row"><input type="text" id="chat-in" placeholder="Type any other question here..." onkeydown="if(event.key==='Enter')sendChat()"><button class="send-btn" id="send-btn" onclick="sendChat()">Ask</button></div>
   </div>
-  <p style="font-size:12px;color:#888;margin-top:10px;text-align:center">Educational information only &mdash; not financial advice. Always verify important information with official sources.</p>
+  <p style="font-size:12px;color:#888;margin-top:10px;text-align:center">Common questions above use pre-written answers (no AI cost). The text box uses AI for any question not covered above. Educational information only &mdash; not financial advice.</p>
 </div>
 
 <!-- ABOUT -->
@@ -674,6 +676,26 @@ async function sendChat(){
   }catch(e){removeTyping();addMsg('assistant','Sorry, there was a connection issue. Please try again in a moment.');}
   isThinking=false;document.getElementById('send-btn').disabled=false;
 }
+var presetAnswers={
+  seed:'<strong>A seed phrase</strong> is a set of 12&ndash;24 random words given to you when you create a crypto wallet. Think of it as the master key to your entire wallet &mdash; it can recover all your funds if your device is lost, broken, or stolen.<br><br>Write it down on paper and store it somewhere safe and offline. <strong>Never photograph it, type it into any website, or share it with anyone &mdash; ever.</strong> Anyone who has your seed phrase has complete access to all your crypto. Legitimate exchanges and wallets will never ask for it.',
+  safe:'<strong>Crypto can be safe for beginners</strong> if you follow a few key rules: stick to well-known regulated exchanges like Coinbase, Kraken, or Gemini; enable 2-factor authentication on every account; never invest more than you can afford to lose completely; and never share your password or seed phrase with anyone.<br><br>The biggest risks for beginners are scams (not the technology itself) and emotional investing during volatile markets. Start small, go slowly, and educate yourself before putting in significant money.',
+  howmuch:'<strong>Start with an amount you would be completely comfortable losing</strong> &mdash; because in crypto, that is always a real possibility. Most financial advisors suggest keeping crypto to no more than 5% of your overall savings.<br><br>For a first purchase, $50&ndash;$100 is plenty. This lets you experience the full process &mdash; buying, watching your balance move, understanding fees &mdash; without significant financial risk. You can always add more once you are comfortable with how everything works.',
+  btceth:'<strong>Bitcoin (BTC)</strong> was created in 2009 as digital money &mdash; a store of value and medium of exchange. Many people treat it like digital gold and hold it long term. There will only ever be 21 million Bitcoin.<br><br><strong>Ethereum (ETH)</strong> is a platform that developers build applications on, not just a currency. Think of Bitcoin as digital gold and Ethereum as a digital computer. Ethereum also introduced the concept of "smart contracts" &mdash; self-executing agreements that run on the blockchain.<br><br>Both are well-established. Most beginners start with Bitcoin, Ethereum, or both.',
+  taxes:'<strong>Yes, in the United States, cryptocurrency is taxed.</strong> The IRS treats crypto as property, similar to stocks. This means:<br><br>&rarr; Selling crypto for profit is a taxable event<br>&rarr; Trading one crypto for another is taxable<br>&rarr; Using crypto to buy goods or services is taxable<br>&rarr; Simply holding crypto is NOT taxable<br><br>Keep records of every purchase and sale including dates and amounts. Tax software like CoinTracker or TaxBit can help. Consult a tax professional for advice specific to your situation. <em>This is educational information, not tax advice.</em>',
+  coldwallet:'<strong>A cold wallet</strong> is a physical device &mdash; usually resembling a USB drive &mdash; that stores your cryptocurrency keys completely offline. Because it is never connected to the internet, it is extremely difficult to hack remotely.<br><br>Popular brands include Ledger (starting around $79) and Trezor (starting around $69). A cold wallet is recommended once you have more than a few hundred dollars in crypto or plan to hold long term.<br><br>For beginners just starting out, leaving small amounts on a reputable exchange with 2-factor authentication enabled is acceptable.',
+  legit:'<strong>To check if a platform is legitimate:</strong><br><br>&rarr; <strong>Is it regulated?</strong> In the US, look for FinCEN registration or state money transmitter licenses. Coinbase, Kraken, and Gemini are all regulated.<br>&rarr; <strong>How long has it been operating?</strong> Avoid platforms less than 2&ndash;3 years old with no track record.<br>&rarr; <strong>Does it have real customer support?</strong> Check reviews on Trustpilot.<br>&rarr; <strong>Did you find it through an ad, email, or social media tip?</strong> Be very cautious &mdash; scam platforms are heavily advertised this way.<br>&rarr; <strong>Does it promise guaranteed returns?</strong> No legitimate platform does this.',
+  password:'<strong>For exchange accounts</strong> (Coinbase, Kraken, etc.): use the "Forgot password" option on the login page. You\'ll receive a reset link to your registered email address. This is why using a real, accessible email when signing up is important.<br><br><strong>For personal wallets</strong> (not on an exchange): you cannot reset the password, but you can recover your entire wallet using your <strong>seed phrase</strong> &mdash; the 12&ndash;24 word recovery phrase you were given when setting up the wallet. This is why keeping your seed phrase safe is the single most important thing in crypto.'
+};
+
+function showPreset(btn,key){
+  document.querySelectorAll('.sug-btn').forEach(function(b){b.style.borderColor='';b.style.color='';b.style.background=''});
+  btn.style.borderColor='#1A4A7A';btn.style.color='#1A4A7A';btn.style.background='#E8F1FA';
+  var box=document.getElementById('preset-answer');
+  box.innerHTML=presetAnswers[key];
+  box.style.display='block';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
 function askQ(btn){document.getElementById('chat-in').value=btn.textContent;sendChat();}
 
 function renderDashboard(){
