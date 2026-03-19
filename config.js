@@ -28,7 +28,7 @@ var AFFILIATE = {
   cashapp:  '#',    // Pending approval — cash.app/referral
 
   // ── Hardware Wallet Links (Cold Wallets) ────────────────
-  ledger:   '#',    // Pending — ledger.com affiliate program
+  ledger:   'https://shop.ledger.com/?r=e72bf9d5a165',    // Pending — ledger.com affiliate program
   trezor:   '#',    // Pending — trezor.io affiliate program
 
   // ── Disclosure text shown near every affiliate button ───
