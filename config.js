@@ -29,7 +29,7 @@ var AFFILIATE = {
 
   // ── Hardware Wallet Links (Cold Wallets) ────────────────
   ledger:   'https://shop.ledger.com/?r=e72bf9d5a165',    // Pending — ledger.com affiliate program
-  trezor:   '#',    // Pending — trezor.io affiliate program
+  trezor:   'https://affil.trezor.io/aff_c?offer_id=137&aff_id=135462',    // Pending — trezor.io affiliate program
 
   // ── Disclosure text shown near every affiliate button ───
   disclosure: 'Affiliate link — we may earn a small referral fee at no cost to you. This never influences our recommendations.',
